@@ -22,3 +22,9 @@ that can be used to produce large amounts of quality copy.
 GPT-3 is also being used for automated conversational tasks, responding to any text that a person types into the computer 
 with a new piece of text appropriate to the context. GPT-3 can create anything with a text structure, and not just human 
 language text. It can also automatically generate text summarizations and even programming code.
+
+## How does GPT-3 work?
+GPT-3 is a language prediction model. This means that it has a neural network machine learning model that can take input
+text as an input and transform it into what it predicts the most useful result will be. This is accomplished by training 
+the system on the vast body of internet text to spot patterns. More specifically, GPT-3 is the third version of a model
+that is focused on text generation based on being pre-trained on a huge amount of text.
