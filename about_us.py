@@ -11,7 +11,7 @@ if not OPEN_API_GPT_SECRET_KEY:
     raise EnvironmentError('You should set OPEN_API_GPT_SECRET_KEY in your environment variable in .env file')
 
 
-def generate_about_us_content(keywords: list):
+def generate_content(keywords: list):
     openai.api_key = OPEN_API_GPT_SECRET_KEY
     keywords = ' '.join(keywords)
     model = openai.Completion.create(
@@ -25,10 +25,10 @@ def generate_about_us_content(keywords: list):
     )
     generated_content = model['choices'][0]['text']
 
-    return generated_content
+    return generated_content, model
 
 
-def prettify(content, finish_reason):
+def prettify(content: str, finish_reason: str):
     if finish_reason == 'length':
         ending_punctuations = config.ENDING_PUNCTUATIONS
         any_finished_sentence = any([mark in content for mark in ending_punctuations])
@@ -42,3 +42,11 @@ def prettify(content, finish_reason):
     content = config.space_remover.sub(' ', content)
 
     return content
+
+
+def about_us_content():
+    generated_content, model = generate_content(config.KEYWORDS)
+    content = generated_content.strip()
+    finish_reason = model['choices'][0]['finish_reason']
+
+    return prettify(content, finish_reason)
