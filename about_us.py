@@ -1,4 +1,5 @@
 import os
+import config
 import openai
 
 from dotenv import load_dotenv
@@ -25,3 +26,19 @@ def generate_about_us_content(keywords: list):
     generated_content = model['choices'][0]['text']
 
     return generated_content
+
+
+def prettify(content, finish_reason):
+    if finish_reason == 'length':
+        ending_punctuations = config.ENDING_PUNCTUATIONS
+        any_finished_sentence = any([mark in content for mark in ending_punctuations])
+        if any_finished_sentence:
+            reversed_content = content[::-1]
+            last_finished_sentence = len(content) - 1 - min([
+                reversed_content.index(mark) for mark in ending_punctuations if mark in content
+            ])
+            content = content[: last_finished_sentence + 1]
+
+    content = config.space_remover.sub(' ', content)
+
+    return content
