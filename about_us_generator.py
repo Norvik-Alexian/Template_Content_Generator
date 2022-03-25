@@ -17,11 +17,11 @@ def generate_content(keywords: list):
     model = openai.Completion.create(
         engine='text-davinci-001',
         prompt=f'Keywords: {keywords}\nwrite long content about the content:',
-        temperature=0.6,
-        max_tokens=600,
-        top_p=1.,
-        frequency_penalty=0.2,
-        presence_penalty=0.
+        temperature=config.TEMPERATURE[0],
+        max_tokens=config.MAX_TOKENS[1],
+        top_p=config.TOP_P,
+        frequency_penalty=config.FREQUENCY_PENALTY[0],
+        presence_penalty=config.PRESENCE_PENALTY
     )
     generated_content = model['choices'][0]['text']
 
