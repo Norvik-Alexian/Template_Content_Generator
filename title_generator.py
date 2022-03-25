@@ -17,11 +17,11 @@ def generate_title(keywords: list):
     model = openai.Completion.create(
         engine='text-davinci-001',
         prompt=f'Keywords: {keywords}\ngenerate short headline for the content:',
-        temperature=1.,
-        max_tokens=15,
-        top_p=1.,
-        frequency_penalty=1.5,
-        presence_penalty=0.
+        temperature=config.TEMPERATURE[1],
+        max_tokens=config.MAX_TOKENS[0],
+        top_p=config.TOP_P,
+        frequency_penalty=config.FREQUENCY_PENALTY[1],
+        presence_penalty=config.PRESENCE_PENALTY
     )
 
     headline = model['choices'][0]['text'].strip()
@@ -29,5 +29,3 @@ def generate_title(keywords: list):
     headline = config.space_remover.sub(' ', headline)
 
     return headline
-
-print(generate_title(config.KEYWORDS))
