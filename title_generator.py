@@ -20,8 +20,8 @@ def generate_title(keywords: list):
         temperature=config.TEMPERATURE[1],
         max_tokens=config.MAX_TOKENS[0],
         top_p=config.TOP_P,
-        frequency_penalty=config.FREQUENCY_PENALTY[1],
-        presence_penalty=config.PRESENCE_PENALTY
+        frequency_penalty=config.FREQUENCY_PENALTY[2],
+        presence_penalty=config.PRESENCE_PENALTY[0]
     )
 
     headline = model['choices'][0]['text'].strip()
