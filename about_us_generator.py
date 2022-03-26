@@ -1,3 +1,4 @@
+import logging
 import os
 import config
 import openai
@@ -12,41 +13,56 @@ if not OPEN_API_GPT_SECRET_KEY:
 
 
 def generate_content(keywords: list):
-    openai.api_key = OPEN_API_GPT_SECRET_KEY
-    keywords = ' '.join(keywords)
-    model = openai.Completion.create(
-        engine='text-davinci-001',
-        prompt=f'Keywords: {keywords}\nwrite long content about the content:',
-        temperature=config.TEMPERATURE[1],
-        max_tokens=config.MAX_TOKENS[1],
-        top_p=config.TOP_P,
-        frequency_penalty=config.FREQUENCY_PENALTY[0],
-        presence_penalty=config.PRESENCE_PENALTY[0]
-    )
-    generated_content = model['choices'][0]['text']
+    try:
+        openai.api_key = OPEN_API_GPT_SECRET_KEY
+        keywords = ' '.join(keywords)
+        model = openai.Completion.create(
+            engine='text-davinci-001',
+            prompt=f'Keywords: {keywords}\nwrite long content about the content:',
+            temperature=config.TEMPERATURE[1],
+            max_tokens=config.MAX_TOKENS[1],
+            top_p=config.TOP_P,
+            frequency_penalty=config.FREQUENCY_PENALTY[0],
+            presence_penalty=config.PRESENCE_PENALTY[0]
+        )
+        generated_content = model['choices'][0]['text']
 
-    return generated_content, model
+        return generated_content, model
+
+    except Exception as e:
+        message = f'Something went wrong with generating about us content, message: {e}'
+        logging.error(message)
 
 
 def prettify(content: str, finish_reason: str):
-    if finish_reason == 'length':
-        ending_punctuations = config.ENDING_PUNCTUATIONS
-        any_finished_sentence = any([mark in content for mark in ending_punctuations])
-        if any_finished_sentence:
-            reversed_content = content[::-1]
-            last_finished_sentence = len(content) - 1 - min([
-                reversed_content.index(mark) for mark in ending_punctuations if mark in content
-            ])
-            content = content[: last_finished_sentence + 1]
+    try:
+        if finish_reason == 'length':
+            ending_punctuations = config.ENDING_PUNCTUATIONS
+            any_finished_sentence = any([mark in content for mark in ending_punctuations])
+            if any_finished_sentence:
+                reversed_content = content[::-1]
+                last_finished_sentence = len(content) - 1 - min([
+                    reversed_content.index(mark) for mark in ending_punctuations if mark in content
+                ])
+                content = content[: last_finished_sentence + 1]
 
-    content = config.space_remover.sub(' ', content)
+        content = config.space_remover.sub(' ', content)
 
-    return content
+        return content
+
+    except Exception as e:
+        message = f'Something went wrong with prettifying the content, message: {e}'
+        logging.error(message)
 
 
 def about_us_content():
-    generated_content, model = generate_content(config.KEYWORDS)
-    content = generated_content.strip()
-    finish_reason = model['choices'][0]['finish_reason']
+    try:
+        generated_content, model = generate_content(config.KEYWORDS)
+        content = generated_content.strip()
+        finish_reason = model['choices'][0]['finish_reason']
 
-    return prettify(content, finish_reason)
+        return prettify(content, finish_reason)
+
+    except Exception as e:
+        message = f'Something went wrong with about us content, message: {e}'
+        logging.error(message)
