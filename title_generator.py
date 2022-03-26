@@ -1,3 +1,4 @@
+import logging
 import os
 import config
 import openai
@@ -12,20 +13,25 @@ if not OPEN_API_GPT_SECRET_KEY:
 
 
 def generate_title(keywords: list):
-    openai.api_key = OPEN_API_GPT_SECRET_KEY
-    keywords = ' '.join(keywords)
-    model = openai.Completion.create(
-        engine='text-davinci-001',
-        prompt=f'Keywords: {keywords}\ngenerate short headline for the content:',
-        temperature=config.TEMPERATURE[1],
-        max_tokens=config.MAX_TOKENS[0],
-        top_p=config.TOP_P,
-        frequency_penalty=config.FREQUENCY_PENALTY[2],
-        presence_penalty=config.PRESENCE_PENALTY[0]
-    )
+    try:
+        openai.api_key = OPEN_API_GPT_SECRET_KEY
+        keywords = ' '.join(keywords)
+        model = openai.Completion.create(
+            engine='text-davinci-001',
+            prompt=f'Keywords: {keywords}\ngenerate short headline for the content:',
+            temperature=config.TEMPERATURE[1],
+            max_tokens=config.MAX_TOKENS[0],
+            top_p=config.TOP_P,
+            frequency_penalty=config.FREQUENCY_PENALTY[2],
+            presence_penalty=config.PRESENCE_PENALTY[0]
+        )
 
-    headline = model['choices'][0]['text'].strip()
-    headline = headline.strip('Re:').strip()
-    headline = config.space_remover.sub(' ', headline)
+        headline = model['choices'][0]['text'].strip()
+        headline = headline.strip('Re:').strip()
+        headline = config.space_remover.sub(' ', headline)
 
-    return headline
+        return headline
+
+    except Exception as e:
+        message = f'Something went wrong with generating titles, message: {e}'
+        logging.error(message)
