@@ -28,3 +28,19 @@ GPT-3 is a language prediction model. This means that it has a neural network ma
 text as an input and transform it into what it predicts the most useful result will be. This is accomplished by training 
 the system on the vast body of internet text to spot patterns. More specifically, GPT-3 is the third version of a model
 that is focused on text generation based on being pre-trained on a huge amount of text.
+
+## Model Request body
+ * `prompt`: The prompt to generate complitions for, encoded as string, array of strings, array of tokens, or array of 
+token array. `<|endoftext|>` is the document seperator that the model sees during training, so if a prompt is not specified 
+the model will generate as if from the beginning of a new document.
+ * `engine`: **_text-davinci-001_** is the most capable GPT-3 model. Can do any task the other models can do, often with
+ less context. In addition to responding to prompt, also supports inserting completions within text.
+ * `temperature`: temperature means what sampling temperature to use. Higher value means the model will take more risks, 
+we can use 0.9 for more creative applications, and 0 for ones with a well-defined answer.
+ * `max_tokens`: The maximum number of tokens to generate in complition. Most model have context length of 2048.
+ * `top_p`: An alternative to sampling with temperature, called nucleus sampling. where the model considers the result of 
+the tokens with top_p probability mass, so 0.1 means only the tokens comprising the top 10% probability mass are considered
+ * `frequency_penalty`: Positive values penalize new tokens based on their existing frequency in the text so far, decreasing
+the model's likelihood to repeat the same line.
+ * `presence_penalty`: Positive value penalize new tokens based on whether they appear in the text so far, increasing 
+the model's likelihood to talk about new topics.
