@@ -35,3 +35,6 @@ def generate_title(keywords: list):
     except Exception as e:
         message = f'Something went wrong with generating titles, message: {e}'
         logging.error(message)
+
+
+print(generate_title(config.KEYWORDS))
