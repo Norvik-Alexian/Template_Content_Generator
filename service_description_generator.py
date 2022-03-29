@@ -37,7 +37,7 @@ def generate_content(keywords: list):
 
 def prettify(content: str, finish_reason: str):
     try:
-        if finish_reason == 'length':
+        if finish_reason == 'stop':
             ending_punctuations = config.ENDING_PUNCTUATIONS
             any_finished_sentence = any([mark in content for mark in ending_punctuations])
             if any_finished_sentence:
@@ -67,3 +67,6 @@ def service_description_content():
     except Exception as e:
         message = f'Something went wrong with service description content, message: {e}'
         logging.error(message)
+
+
+print(service_description_content())
