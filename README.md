@@ -44,6 +44,16 @@ text as an input and transform it into what it predicts the most useful result w
 the system on the vast body of internet text to spot patterns. More specifically, GPT-3 is the third version of a model
 that is focused on text generation based on being pre-trained on a huge amount of text.
 
+## Prompt Design
+There are three basic guidelines to creating prompts:
+1. `Show and tell`: Make it clear what you want either through instructions, examples, or a combination of the two. If
+you want the model to rank a list of items in alphabetical order or to classify a paragraph by sentiment, show it that's
+what you want.
+2. `Provide quality data`: If you're trying to build a classifier or get the model to follow a pattern, make sure that
+there are enough examples. The model is usually smart enough to see through basic spelling mistakes and give you a response,
+but it also might assume this is intentional, and it can affect the response.
+3. `Check your settings`: The temperature and top_p settings control how deterministic the model is in generaating a response.
+
 ## Model Request body
  * `prompt`: The prompt to generate complitions for, encoded as string, array of strings, array of tokens, or array of 
 token array. `<|endoftext|>` is the document seperator that the model sees during training, so if a prompt is not specified 
@@ -51,7 +61,11 @@ the model will generate as if from the beginning of a new document.
  * `engine`: **_text-davinci-001_** is the most capable GPT-3 model. Can do any task the other models can do, often with
  less context. In addition to responding to prompt, also supports inserting completions within text.
  * `temperature`: temperature means what sampling temperature to use. Higher value means the model will take more risks, 
-we can use 0.9 for more creative applications, and 0 for ones with a well-defined answer.
+we can use 0.9 for more creative applications, and 0 for ones with a well-defined answer.\
+Remember that the model predicts which text is most likely to follow the text preceding it. Temperature is a value between
+0 and 1 that essentially lets you control how confident the model should be when making these predictions. Lowering temperature
+means it will take fewer risks, and completions will be more accurate and deterministic. Increasing temperature will result
+in more diverse completions.
  * `max_tokens`: The maximum number of tokens to generate in complition. Most model have context length of 2048.
  * `top_p`: An alternative to sampling with temperature, called nucleus sampling. where the model considers the result of 
 the tokens with top_p probability mass, so 0.1 means only the tokens comprising the top 10% probability mass are considered
