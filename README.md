@@ -1,6 +1,13 @@
 # template_content_generator
 generating template content such as about us, news artical, news title, product description and etc. using pretrained Language Model GPT-3
 
+Key conceptes and techniques that are fundamental to using the OpenAI API for any task including:
+* Content generation
+* Summarization
+* Classification, categorization, and sentiment analysis
+* Data extraction
+* Translation etc.
+
 ## Introduction
 The OpenAI API can be applied to virtually any task that involves understanding or generating natural language or code.
 
@@ -10,6 +17,14 @@ relevant and sophisticated machine-generated text.
 
 GPT-3's deep learning neural network is a model with over 175 billion machine learning parameters. As a result GPT-3 is
 better than any prior model for producing text that is convincing enough to seem like a human could have written it.
+
+The `completions` endpoint is the core of OpenAI API and provides a simple interface that's extremenly flexible and powerful.\
+You input some text as a prompt, and the API will return a text completion that attempts to match whatever instructions or 
+context we gave it.\
+You can think of this as a very advanced autocomplete - the model processes your text prompt and tries to predict what's 
+most likely to come next. Designing the prompt is essentially how we "program" the model.\
+In many cases, it's helpful to both show and tell the model what you want. Adding examples to the prompt can help communicate
+patterns or nuances.
 
 ## What can GPT-3 do?
 Natural Language processing includes as one of its major components natural langauge generation. which focus on generating
