@@ -18,7 +18,7 @@ def generate_content(keywords: list):
         keywords = ' '.join(keywords)
         model = openai.Completion.create(
             engine='text-davinci-001',
-            prompt=f'Keywords: {keywords}\nwrite long content about the content:',
+            prompt=f'Keywords: {keywords}\ngenerate about us content for the product:',
             temperature=config.TEMPERATURE[1],
             max_tokens=config.MAX_TOKENS[1],
             top_p=config.TOP_P,
@@ -36,7 +36,7 @@ def generate_content(keywords: list):
 
 def prettify(content: str, finish_reason: str):
     try:
-        if finish_reason == 'length':
+        if finish_reason == 'stop':
             ending_punctuations = config.ENDING_PUNCTUATIONS
             any_finished_sentence = any([mark in content for mark in ending_punctuations])
             if any_finished_sentence:
@@ -66,3 +66,6 @@ def about_us_content():
     except Exception as e:
         message = f'Something went wrong with about us content, message: {e}'
         logging.error(message)
+
+
+print(about_us_content())
