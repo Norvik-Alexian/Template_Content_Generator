@@ -43,7 +43,8 @@ class NewsArticleGenerator:
             message = f'Something went wrong with generating news article content, message: {e}'
             logging.error(message, exc_info=True)
 
-    def prettify(self, content: str, finish_season: str):
+    @staticmethod
+    def prettify(content: str, finish_season: str):
         try:
             if finish_season == 'stop':
                 ending_punctuations = config.ENDING_PUNCTUATIONS

@@ -42,7 +42,8 @@ class AboutUsGenerator:
             message = f'Something went wrong with generating about us content, message: {e}'
             logging.error(message, exc_info=True)
 
-    def prettify(self, content: str, finish_reason: str):
+    @staticmethod
+    def prettify(content: str, finish_reason: str):
         try:
             if finish_reason == 'stop':
                 ending_punctuations = config.ENDING_PUNCTUATIONS
