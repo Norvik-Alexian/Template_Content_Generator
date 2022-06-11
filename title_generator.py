@@ -27,7 +27,7 @@ class TitleGenerator:
             keywords = ' '.join(keywords)
             model = openai.Completion.create(
                 engine='text-davinci-001',
-                prompt=f'Keywords: {keywords}\ngenerate short tagline for the content:',
+                prompt=f'Keywords: {keywords}\ngenerate short title for the content:',
                 temperature=self.temperature,
                 max_tokens=self.max_tokens,
                 top_p=self.top_p,
