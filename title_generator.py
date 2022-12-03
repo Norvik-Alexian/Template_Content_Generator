@@ -33,18 +33,18 @@ class TitleGenerator:
             keywords = ' '.join(config.KEYWORDS)
             model = openai.Completion.create(
                 engine='text-davinci-002',
-                prompt=f'Keywords: {keywords}\ngenerate short title for the content:',
-                temperature=self.temperature[1],
-                max_tokens=self.max_tokens[0],
+                prompt=f'Generate Article Title within the Keywords\nKeywords: {keywords}\nArticle Title:',
+                temperature=self.temperature,
+                max_tokens=self.max_tokens,
                 top_p=self.top_p,
-                frequency_penalty=self.frequency_penalty[2],
-                presence_penalty=self.presence_penalty[0]
+                frequency_penalty=self.frequency_penalty,
+                presence_penalty=self.presence_penalty
             )
 
             title = model['choices'][0]['text'].strip()
             finish_reason = model['choices'][0]['finish_reason']
 
-            return model, prettify(title, finish_reason)
+            return prettify(title, finish_reason)
         except Exception as e:
             message = f'Something went wrong with generating titles, message: {e}'
             logging.error(message, exc_info=True)
