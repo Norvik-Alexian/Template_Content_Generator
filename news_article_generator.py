@@ -27,18 +27,18 @@ class NewsArticleGenerator:
         self.presence_penalty = presence_penalty
 
     @property
-    def generate_content(self):
+    def generate_news_article(self):
         try:
             openai.api_key = OPEN_API_GPT_SECRET_KEY
             keywords = ' '.join(config.KEYWORDS)
             model = openai.Completion.create(
                 engine='text-davinci-002',
-                prompt=f'Keywords: {keywords}\ngenerate long news article:',
-                temperature=self.temperature[0],
+                prompt=f'Generate News Article within the Keywords\nKeywords: {keywords}\nNews Article:',
+                temperature=self.temperature,
                 max_tokens=self.max_tokens[1],
                 top_p=self.top_p,
-                frequency_penalty=self.frequency_penalty[1],
-                presence_penalty=self.presence_penalty[1]
+                frequency_penalty=self.frequency_penalty,
+                presence_penalty=self.presence_penalty
             )
 
             generated_content = model['choices'][0]['text'].strip()
@@ -51,4 +51,4 @@ class NewsArticleGenerator:
 
 
 content = NewsArticleGenerator()
-print(content.generate_content)
+print(content.generate_news_article)
