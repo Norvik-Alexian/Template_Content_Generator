@@ -35,7 +35,7 @@ class NewsArticleGenerator:
                 engine='text-davinci-002',
                 prompt=f'Generate News Article within the Keywords\nKeywords: {keywords}\nNews Article:',
                 temperature=self.temperature,
-                max_tokens=self.max_tokens[1],
+                max_tokens=self.max_tokens,
                 top_p=self.top_p,
                 frequency_penalty=self.frequency_penalty,
                 presence_penalty=self.presence_penalty
