@@ -33,12 +33,12 @@ class ProductDescriptionGenerator:
             keywords = ' '.join(config.KEYWORDS)
             model = openai.Completion.create(
                 engine='text-davinci-002',
-                prompt=f'Keywords: {keywords}\ngenerate product description:',
-                temperature=self.temperature[0],
+                prompt=f'Generate Product Description within the Keywords\nKeywords: {keywords}\nProduct Description:',
+                temperature=self.temperature,
                 max_tokens=self.max_tokens[1],
                 top_p=self.top_p,
-                frequency_penalty=self.frequency_penalty[1],
-                presence_penalty=self.presence_penalty[1]
+                frequency_penalty=self.frequency_penalty,
+                presence_penalty=self.presence_penalty
             )
 
             product_description = model['choices'][0]['text'].strip()
