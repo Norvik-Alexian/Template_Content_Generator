@@ -35,6 +35,10 @@ class AboutUsGenerator:
         self.presence_penalty = presence_penalty
 
     def generate_about_us(self, keywords: list):
+        """
+        :param keywords: list of keywords that we pass to the model to generate about us content
+        :return: generated about us content that went through content prettifier
+        """
         try:
             model = openai.Completion.create(
                 engine=self.engine,
