@@ -33,6 +33,10 @@ class TitleGenerator:
         self.presence_penalty = presence_penalty
 
     def generate_title(self, keywords: list):
+        """
+        :param keywords: list of keywords that we pass to the model to generate titles
+        :return: generated titles that went through content prettifier
+        """
         try:
             model = openai.Completion.create(
                 engine=self.engine,
