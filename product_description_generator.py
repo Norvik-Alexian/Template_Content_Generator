@@ -33,6 +33,10 @@ class ProductDescriptionGenerator:
         self.presence_penalty = presence_penalty
 
     def generate_product_description(self, keywords: list):
+        """
+        :param keywords: list of keywords that we pass to the model to generate product description
+        :return: generated product description that went through content prettifier
+        """
         try:
             model = openai.Completion.create(
                 engine=self.engine,
