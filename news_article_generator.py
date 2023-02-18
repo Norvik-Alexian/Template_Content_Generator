@@ -33,6 +33,10 @@ class NewsArticleGenerator:
         self.presence_penalty = presence_penalty
 
     def generate_news_article(self, keywords: list):
+        """
+        :param keywords: list of keywords that we pass to the model to generate news articles
+        :return: generated news article that went through content prettifier
+        """
         try:
             model = openai.Completion.create(
                 engine=self.engine,
