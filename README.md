@@ -73,3 +73,43 @@ the tokens with top_p probability mass, so 0.1 means only the tokens comprising 
 the model's likelihood to repeat the same line.
  * `presence_penalty`: Positive value penalize new tokens based on whether they appear in the text so far, increasing 
 the model's likelihood to talk about new topics.
+
+# Development Setup
+
+If you don't have `pip` on your system, you can download it with the help of this command:
+
+```commandline
+sudo apt-get install python3-pip
+```
+
+## Virtual Environment Setup
+You can create a virtual environment with Anaconda if you have it on your system, create a virtualenv with command below:
+
+```commandline
+conda create -n yourenvname python==x.x
+conda activate yourenvname
+```
+
+Or you can install virtualwrapper with command below:
+
+```commandline
+sudo pip3 install virtualenvwrapper
+sudo pip3 install --upgrade virtualenv
+```
+
+And after installation create virtual environment:
+
+```commandline
+cd/your/path && mkvirtualenv --python=python3 yourenvname
+```
+
+Install the required packages from the requirements.txt to run this project:
+
+```commandline
+pip install -r requirements.txt
+```
+
+## Project Essentials Guide
+To run this project the most important thing is to have a secret API key from OpenAI that enables the model to generate
+the contents. If you have the secret API key you should set it as your environment variable under tha name of 
+`OPENAI_API_KEY` and read it using `python-dotenv` package.
